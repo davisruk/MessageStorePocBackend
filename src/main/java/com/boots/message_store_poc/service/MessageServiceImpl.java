@@ -27,6 +27,6 @@ public class MessageServiceImpl implements MessageService {
 				message.getCorrelationId(),
 				message.getMessageRenderTechnology()));
 
-		return new PaginatedMessageSummary(summaries.getContent(), summaries.getTotalElements(), summaries.getTotalPages(), summaries.getNumber());
+		return new PaginatedMessageSummary(summaries.getContent(), summaries.getTotalElements(), summaries.getTotalPages(), summaries.getNumber(), summaries.getSize());
 	}
 }

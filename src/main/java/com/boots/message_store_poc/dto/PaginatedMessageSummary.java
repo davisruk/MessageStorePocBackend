@@ -12,4 +12,5 @@ public class PaginatedMessageSummary {
 	private long totalElements;
 	private int totalPages;
 	private int pageNumber;
+	private int pageSize;
 }
