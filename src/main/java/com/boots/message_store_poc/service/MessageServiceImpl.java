@@ -47,4 +47,24 @@ public class MessageServiceImpl implements MessageService {
 				message.getMessageRenderTechnology(),
 				message.getPayload())).orElse(null);
 	}
+	
+	@Override
+	public PaginatedMessageSummary searchMessages(String query, boolean includePayload, Pageable pageable) {
+		// see note in CustomMessageRepositoryImpl about why we use the concrete class instead of the projection interface
+		Page<MessageSummary> page = messageRepository.search(query, includePayload, pageable);
+		List<MessageSummary> summaries = page.stream().map(message -> new MessageSummary(
+				message.getId(),
+				message.getSourceSystem(),
+				message.getDestinationAddress(),
+				message.getMessageId(),
+				message.getCorrelationId(),
+				message.getMessageRenderTechnology())).collect(Collectors.toList());
+
+		return new PaginatedMessageSummary(
+				summaries,
+				page.getTotalElements(),
+				page.getTotalPages(),
+				page.getNumber(),
+				page.getSize());
+	}
 }

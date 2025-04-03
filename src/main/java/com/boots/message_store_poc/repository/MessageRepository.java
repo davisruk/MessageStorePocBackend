@@ -11,7 +11,7 @@ import com.boots.message_store_poc.model.MessageDocument;
 import com.boots.message_store_poc.model.MessageSummaryProjection;
 
 @Repository
-public interface MessageRepository extends MongoRepository<MessageDocument, String> {
+public interface MessageRepository extends MongoRepository<MessageDocument, String>, CustomMessageRepository {
 	// Use projection to return only the fields we need
 	Page<MessageSummaryProjection> findAllSummariesBy(Pageable pageable);
 	Optional<MessageDocument> findById(String id);

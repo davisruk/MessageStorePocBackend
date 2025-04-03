@@ -10,4 +10,5 @@ public interface MessageService {
 
 	PaginatedMessageSummary getMessageSummaries(Pageable pageable);
 	Message getMessage(String id);
+	PaginatedMessageSummary searchMessages(String query, boolean includePayload, Pageable pageable);
 }
