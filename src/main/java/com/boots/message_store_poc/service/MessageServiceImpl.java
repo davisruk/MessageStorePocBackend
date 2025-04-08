@@ -1,6 +1,7 @@
 package com.boots.message_store_poc.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -49,9 +50,9 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	@Override
-	public PaginatedMessageSummary searchMessages(String query, boolean includePayload, Pageable pageable) {
+	public PaginatedMessageSummary searchMessages(String query, boolean includePayload, Map<String, String> columnFilters, Pageable pageable) {
 		// see note in CustomMessageRepositoryImpl about why we use the concrete class instead of the projection interface
-		Page<MessageSummary> page = messageRepository.search(query, includePayload, pageable);
+		Page<MessageSummary> page = messageRepository.search(query, includePayload, columnFilters, pageable);
 		List<MessageSummary> summaries = page.stream().map(message -> new MessageSummary(
 				message.getId(),
 				message.getSourceSystem(),

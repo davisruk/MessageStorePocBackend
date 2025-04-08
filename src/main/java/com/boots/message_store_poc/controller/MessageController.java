@@ -1,5 +1,7 @@
 package com.boots.message_store_poc.controller;
 
+import java.util.Map;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +39,11 @@ public class MessageController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<PaginatedMessageSummary> searchMessages(
-			@RequestParam(name = "query") String query, 
-			@RequestParam(name = "includePayload", defaultValue = "false") boolean includePayload,
-			@RequestParam (name = "page", defaultValue = "0") int page,
-			@RequestParam (name = "size", defaultValue = "10") int size) {
-		PaginatedMessageSummary summaries = messageService.searchMessages(query, includePayload, PageRequest.of(page, size));
-		return ResponseEntity.ok(summaries);
+	public ResponseEntity<PaginatedMessageSummary> searchMessages(@RequestParam Map<String, String> params) {
+		String query = params.remove("query");
+		boolean includePayload = Boolean.parseBoolean(params.remove("includePayload"));
+		int page = Integer.parseInt(params.remove("page"));
+		int size = Integer.parseInt(params.remove("size"));
+		return ResponseEntity.ok(messageService.searchMessages(query, includePayload, params, PageRequest.of(page, size)));
 	}
 }
