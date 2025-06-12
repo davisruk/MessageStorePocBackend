@@ -26,6 +26,7 @@ public class MessageListener {
 		message.setMessageRenderTechnology((String) messageData.get("messageRenderTechnology"));
 		Object payload = messageData.get("payload");
 		message.setPayload(payload != null ? payload.toString() : null);
+		message.setFormatUrl((String) messageData.get("formatUrl"));
 		messageRepository.save(message);
 		System.out.println("Message saved to MongoDB: " + message);
 	}

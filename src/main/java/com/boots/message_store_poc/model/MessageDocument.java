@@ -16,4 +16,5 @@ public class MessageDocument {
 	private String correlationId;
 	private String messageRenderTechnology;
 	private String payload;
+	private String formatUrl;
 }

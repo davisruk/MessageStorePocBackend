@@ -47,7 +47,9 @@ public class MessageServiceImpl implements MessageService {
 				message.getMessageId(),
 				message.getCorrelationId(),
 				message.getMessageRenderTechnology(),
-				message.getPayload())).orElse(null);
+				message.getPayload(),
+				message.getFormatUrl(),
+				null)).orElse(null);
 	}
 	
 	@Override
